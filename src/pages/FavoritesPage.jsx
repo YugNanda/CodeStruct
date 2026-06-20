@@ -47,7 +47,7 @@ export default function FavoritesPage() {
     const fetchFavorites = async () => {
         try {
             const token = user?.token || localStorage.getItem('token');
-            const response = await fetch('http://localhost:5000/api/favorites', {
+            const response = await fetch('https://codestruct.onrender.com', {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
 
@@ -65,7 +65,7 @@ export default function FavoritesPage() {
     const removeFavorite = async (algorithmId) => {
         try {
             const token = user?.token || localStorage.getItem('token');
-            const response = await fetch(`http://localhost:5000/api/favorites/${algorithmId}`, {
+            const response = await fetch(`https://codestruct.onrender.com`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });

@@ -25,7 +25,7 @@ export const useStreaks = () => {
         
         try {
             const token = getToken();
-            const response = await fetch('http://localhost:5000/api/streaks', {
+            const response = await fetch('https://codestruct.onrender.com', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -54,7 +54,7 @@ export const useStreaks = () => {
         
         try {
             const token = getToken();
-            const response = await fetch(`http://localhost:5000/api/streaks/history?days=${days}`, {
+            const response = await fetch(`https://codestruct.onrender.com`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -75,7 +75,7 @@ export const useStreaks = () => {
         
         try {
             const token = getToken();
-            const response = await fetch('http://localhost:5000/api/streaks/practice', {
+            const response = await fetch('https://codestruct.onrender.com', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -104,7 +104,7 @@ export const useStreaks = () => {
         
         try {
             const token = getToken();
-            const response = await fetch('http://localhost:5000/api/streaks/status', {
+            const response = await fetch('https://codestruct.onrender.com', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

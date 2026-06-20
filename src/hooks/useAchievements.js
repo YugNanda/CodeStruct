@@ -21,7 +21,7 @@ export const useAchievements = () => {
         
         try {
             const token = getToken();
-            const response = await fetch('http://localhost:5000/api/achievements', {
+            const response = await fetch('https://codestruct.onrender.com', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -46,7 +46,7 @@ export const useAchievements = () => {
         
         try {
             const token = getToken();
-            const response = await fetch('http://localhost:5000/api/achievements/check', {
+            const response = await fetch('https://codestruct.onrender.com', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

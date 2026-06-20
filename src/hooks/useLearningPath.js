@@ -19,7 +19,7 @@ export const useLearningPath = () => {
         
         try {
             const token = getToken();
-            const response = await fetch('http://localhost:5000/api/learning-paths', {
+            const response = await fetch('https://codestruct.onrender.com', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -42,7 +42,7 @@ export const useLearningPath = () => {
         
         try {
             const token = getToken();
-            const response = await fetch('http://localhost:5000/api/learning-paths/recommendations', {
+            const response = await fetch('https://codestruct.onrender.com', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -66,7 +66,7 @@ export const useLearningPath = () => {
         
         try {
             const token = getToken();
-            const response = await fetch(`http://localhost:5000/api/learning-paths/${pathId}`, {
+            const response = await fetch(`https://codestruct.onrender.com`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -88,7 +88,7 @@ export const useLearningPath = () => {
         
         try {
             const token = getToken();
-            const response = await fetch(`http://localhost:5000/api/learning-paths/${pathId}/start`, {
+            const response = await fetch(`https://codestruct.onrender.com`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`
