@@ -1,0 +1,57 @@
+name: Feature request
+description: Suggest an improvement or a new visualizer feature.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for sharing an idea. Clear use-cases help us prioritize better.
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues and didn't find a duplicate.
+          required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem statement
+      description: What user problem does this solve?
+      placeholder: "It is hard to follow pointer movement in linked-list animations."
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe your preferred solution.
+      placeholder: "Add a moving focus ring that follows the active pointer."
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      placeholder: "Highlight only labels, but that is less visible."
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Linked List Visualizer
+        - Sorting Visualizer
+        - Algorithms Page
+        - Home/Navigation
+        - Docs/Contributor Experience
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: extra
+    attributes:
+      label: Extra context
+      description: Mockups, references, or examples.
+

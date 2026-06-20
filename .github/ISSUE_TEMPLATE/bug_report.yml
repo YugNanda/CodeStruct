@@ -1,0 +1,65 @@
+name: Bug report
+description: Report a reproducible problem in DSA Visualizer.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. Please provide clear steps so we can reproduce it quickly.
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues and didn't find a duplicate.
+          required: true
+        - label: I can reproduce this on the latest code from `main`.
+          required: false
+  - type: textarea
+    id: summary
+    attributes:
+      label: Bug summary
+      description: What happened?
+      placeholder: "Example: Linked-list pointer labels disappear when list size is 12."
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Add exact steps.
+      placeholder: |
+        1. Go to ...
+        2. Click ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      placeholder: "The pointer label should remain visible."
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      placeholder: "The pointer label gets clipped or disappears."
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser/OS/device details.
+      placeholder: "Windows 11, Chrome 122, desktop"
+  - type: textarea
+    id: logs
+    attributes:
+      label: Extra context
+      description: Screenshots, console errors, or videos.
+      render: shell
+

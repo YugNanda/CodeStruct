@@ -1,0 +1,634 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Manrope:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #3b82f6;
+}
+
+:root {
+  --viz-theme-accent: #22d3ee;
+  --viz-theme-pill: rgba(14, 116, 144, 0.45);
+  --viz-theme-radial-a: rgba(56, 189, 248, 0.2);
+  --viz-theme-radial-b: rgba(59, 130, 246, 0.16);
+  --viz-theme-surface-a: rgba(56, 189, 248, 0.1);
+  --viz-theme-surface-b: rgba(59, 130, 246, 0.06);
+  --viz-theme-orbit-a: rgba(34, 211, 238, 0.18);
+  --viz-theme-orbit-b: rgba(14, 165, 233, 0.14);
+  --viz-theme-glow: rgba(34, 211, 238, 0.45);
+}
+
+[data-visualizer-theme="sunrise"] {
+  --viz-theme-accent: #fb923c;
+  --viz-theme-pill: rgba(194, 65, 12, 0.45);
+  --viz-theme-radial-a: rgba(249, 115, 22, 0.22);
+  --viz-theme-radial-b: rgba(244, 63, 94, 0.16);
+  --viz-theme-surface-a: rgba(251, 146, 60, 0.12);
+  --viz-theme-surface-b: rgba(244, 63, 94, 0.08);
+  --viz-theme-orbit-a: rgba(251, 146, 60, 0.2);
+  --viz-theme-orbit-b: rgba(244, 63, 94, 0.14);
+  --viz-theme-glow: rgba(251, 146, 60, 0.5);
+}
+
+[data-visualizer-theme="aurora"] {
+  --viz-theme-accent: #34d399;
+  --viz-theme-pill: rgba(6, 95, 70, 0.45);
+  --viz-theme-radial-a: rgba(52, 211, 153, 0.22);
+  --viz-theme-radial-b: rgba(34, 211, 238, 0.15);
+  --viz-theme-surface-a: rgba(16, 185, 129, 0.12);
+  --viz-theme-surface-b: rgba(34, 197, 94, 0.08);
+  --viz-theme-orbit-a: rgba(52, 211, 153, 0.2);
+  --viz-theme-orbit-b: rgba(34, 211, 238, 0.14);
+  --viz-theme-glow: rgba(52, 211, 153, 0.5);
+}
+
+@keyframes vizDriftA {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(2%, -2%, 0) scale(1.04);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes vizDriftB {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(-2%, 2%, 0) scale(1.03);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+/* If you want to use @apply, it must be inside a layer */
+@layer base {
+  body {
+    @apply bg-slate-900 text-white;
+    margin: 0;
+    font-family: 'Manrope', 'Segoe UI', sans-serif;
+  }
+
+  body.viz-focus-mode {
+    overflow-x: hidden;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Sora', 'Manrope', sans-serif;
+  }
+
+  .font-body {
+    font-family: 'Manrope', 'Segoe UI', sans-serif;
+  }
+
+  .font-code {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  .ll-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(59, 130, 246, 0.55) rgba(15, 23, 42, 0.55);
+  }
+
+  .ll-scrollbar::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+  }
+
+  .ll-scrollbar::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.55);
+    border-radius: 9999px;
+  }
+
+  .ll-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.85), rgba(34, 211, 238, 0.85));
+    border-radius: 9999px;
+  }
+
+  .visualizer-page {
+    isolation: isolate;
+  }
+
+  .visualizer-page::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: -19;
+    background:
+      radial-gradient(circle at 20% 0%, var(--viz-theme-radial-a), transparent 32%),
+      radial-gradient(circle at 82% 10%, var(--viz-theme-radial-b), transparent 34%);
+    animation: vizDriftA 16s ease-in-out infinite;
+  }
+
+  .visualizer-page::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: -18;
+    background:
+      radial-gradient(circle at 0% 45%, var(--viz-theme-surface-a), transparent 40%),
+      radial-gradient(circle at 100% 65%, var(--viz-theme-surface-b), transparent 42%),
+      radial-gradient(circle at 55% 100%, var(--viz-theme-orbit-a), transparent 26%),
+      radial-gradient(circle at -5% 75%, var(--viz-theme-orbit-b), transparent 24%);
+    animation: vizDriftB 20s ease-in-out infinite;
+  }
+
+  .visualizer-page>.visualizer-ambient-layer {
+    opacity: 0.4;
+    mix-blend-mode: screen;
+    filter: saturate(1.2);
+  }
+
+  .visualizer-control-hub {
+    box-shadow:
+      0 18px 70px rgba(2, 6, 23, 0.7),
+      0 0 0 1px rgba(148, 163, 184, 0.16),
+      0 0 28px var(--viz-theme-glow);
+  }
+
+  .viz-focus-active {
+    min-height: 100svh;
+  }
+
+  [data-visualizer-ambient="off"] .visualizer-page::before,
+  [data-visualizer-ambient="off"] .visualizer-page::after {
+    animation: none;
+  }
+
+  [data-visualizer-ambient="off"] .visualizer-page>.visualizer-ambient-layer {
+    opacity: 0.16;
+    filter: saturate(1);
+  }
+
+  [data-visualizer-ambient="off"] .visualizer-page::after {
+    opacity: 0.45;
+  }
+
+  @media (max-width: 640px) {
+    .visualizer-control-hub {
+      right: 0.75rem;
+      left: 0.75rem;
+      width: auto;
+      border-radius: 1rem;
+    }
+  }
+}
+
+/* ─────────────────────────────────────────────
+   Light Mode Overrides
+   ───────────────────────────────────────────── */
+
+[data-mode="light"] body {
+  background-color: #f8fafc !important;
+  /* slate-50 */
+  color: #0f172a !important;
+  /* slate-900 */
+}
+
+/* ── Navbar ── */
+[data-mode="light"] nav.sticky {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border-bottom-color: rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.05) !important;
+}
+
+[data-mode="light"] nav .text-white,
+[data-mode="light"] nav .text-slate-200,
+[data-mode="light"] nav .text-slate-300 {
+  color: #1e293b !important;
+}
+
+[data-mode="light"] nav .text-slate-400 {
+  color: #64748b !important;
+}
+
+[data-mode="light"] nav .bg-white\/5,
+[data-mode="light"] nav .bg-white\/10 {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+[data-mode="light"] nav .border-white\/5,
+[data-mode="light"] nav .border-white\/10 {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+[data-mode="light"] nav .bg-slate-900\/70,
+[data-mode="light"] nav .bg-slate-900\/95 {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+}
+
+[data-mode="light"] nav .hover\:bg-white\/10:hover,
+[data-mode="light"] nav .hover\:bg-white\/5:hover {
+  background-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+[data-mode="light"] nav .hover\:text-white:hover {
+  color: #0f172a !important;
+}
+
+/* ── Global surfaces / cards ── */
+[data-mode="light"] .rounded-3xl.border.border-white\/10,
+[data-mode="light"] .rounded-2xl.border.border-white\/10 {
+  background-color: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.06) !important;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08), 0 4px 10px -5px rgba(0, 0, 0, 0.04) !important;
+}
+
+[data-mode="light"] .bg-slate-800\/40,
+[data-mode="light"] .bg-slate-800\/35 {
+  background-color: #ffffff !important;
+}
+
+[data-mode="light"] .bg-slate-900\/55,
+[data-mode="light"] .bg-slate-900\/40 {
+  background-color: rgba(241, 245, 249, 0.9) !important;
+}
+
+[data-mode="light"] .bg-white\/5 {
+  background-color: rgba(0, 0, 0, 0.03) !important;
+}
+
+[data-mode="light"] .border-white\/10,
+[data-mode="light"] .border-white\/15,
+[data-mode="light"] .border-white\/5 {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* ── Text color overrides ── */
+[data-mode="light"] .text-white {
+  color: #0f172a !important;
+}
+
+[data-mode="light"] .text-slate-200 {
+  color: #334155 !important;
+}
+
+[data-mode="light"] .text-slate-300 {
+  color: #475569 !important;
+}
+
+[data-mode="light"] .text-slate-400 {
+  color: #64748b !important;
+}
+
+[data-mode="light"] .text-slate-500 {
+  color: #94a3b8 !important;
+}
+
+/* ── Code section ── */
+[data-mode="light"] .bg-slate-950,
+[data-mode="light"] .bg-\[\#020617\] {
+  background-color: #f1f5f9 !important;
+}
+
+[data-mode="light"] .bg-slate-900 {
+  background-color: #e2e8f0 !important;
+}
+
+[data-mode="light"] .border-slate-800 {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+[data-mode="light"] .text-slate-600 {
+  color: #94a3b8 !important;
+}
+
+/* ── Form controls ── */
+[data-mode="light"] .bg-slate-900\/70 {
+  background-color: #f1f5f9 !important;
+  color: #1e293b !important;
+}
+
+[data-mode="light"] select.bg-slate-900\/70 {
+  background-color: #f1f5f9 !important;
+  color: #1e293b !important;
+}
+
+/* ── Scrollbar ── */
+[data-mode="light"] .ll-scrollbar {
+  scrollbar-color: rgba(59, 130, 246, 0.4) rgba(241, 245, 249, 0.8);
+}
+
+[data-mode="light"] .ll-scrollbar::-webkit-scrollbar-track {
+  background: rgba(241, 245, 249, 0.8);
+}
+
+/* ── Footer ── */
+[data-mode="light"] footer {
+  background-color: #f1f5f9 !important;
+  border-top-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* ── Dashed borders (visualizer containers) ── */
+[data-mode="light"] .border-dashed.border-slate-600\/50 {
+  border-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+/* ── Hover overrides ── */
+[data-mode="light"] .hover\:bg-white\/5:hover {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+[data-mode="light"] .hover\:bg-white\/10:hover {
+  background-color: rgba(0, 0, 0, 0.07) !important;
+}
+
+[data-mode="light"] .hover\:text-white:hover {
+  color: #0f172a !important;
+}
+
+/* ── Visualizer ambient layer — soften in light mode ── */
+[data-mode="light"] .visualizer-page>.visualizer-ambient-layer {
+  opacity: 0.4 !important;
+  background: radial-gradient(circle at 20% 0%, rgba(56, 189, 248, 0.15), transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1), transparent 40%),
+    #f8fafc !important;
+}
+
+[data-mode="light"] .visualizer-page::before,
+[data-mode="light"] .visualizer-page::after {
+  opacity: 0.3;
+}
+
+/* DSA LAB logo gradient is kept as-is in both modes */
+
+/* ── Preserve colored accent text in light mode ── */
+[data-mode="light"] .text-cyan-100,
+[data-mode="light"] .text-cyan-200,
+[data-mode="light"] .text-emerald-100,
+[data-mode="light"] .text-emerald-200,
+[data-mode="light"] .text-rose-100,
+[data-mode="light"] .text-rose-200,
+[data-mode="light"] .text-amber-100,
+[data-mode="light"] .text-amber-200,
+[data-mode="light"] .text-blue-100,
+[data-mode="light"] .text-blue-200,
+[data-mode="light"] .text-violet-200,
+[data-mode="light"] .text-teal-200,
+[data-mode="light"] .text-purple-200 {
+  filter: brightness(0.7);
+}
+
+/* ── Smooth transition for theme switch ── */
+body,
+nav.sticky,
+footer,
+main {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* ── Code syntax highlighting — darken for light bg ── */
+[data-mode="light"] .text-emerald-400\/80 {
+  color: #047857 !important;
+  /* emerald-700 */
+}
+
+[data-mode="light"] .text-amber-300 {
+  color: #b45309 !important;
+  /* amber-700 */
+}
+
+[data-mode="light"] .text-orange-300 {
+  color: #c2410c !important;
+  /* orange-700 */
+}
+
+[data-mode="light"] .text-cyan-300 {
+  color: #0e7490 !important;
+  /* cyan-700 */
+}
+
+[data-mode="light"] .text-sky-300 {
+  color: #0369a1 !important;
+  /* sky-700 */
+}
+
+[data-mode="light"] .text-fuchsia-400 {
+  color: #a21caf !important;
+  /* fuchsia-700 */
+}
+
+[data-mode="light"] .text-slate-100 {
+  color: #1e293b !important;
+  /* slate-800 */
+}
+
+/* ── DP Table / data grid cells ── */
+[data-mode="light"] .bg-slate-800\/80 {
+  background-color: rgba(241, 245, 249, 0.9) !important;
+  /* slate-100 */
+}
+
+[data-mode="light"] .border-slate-700\/50,
+[data-mode="light"] .border-slate-700 {
+  border-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+[data-mode="light"] .bg-slate-700\/70 {
+  background-color: rgba(203, 213, 225, 0.7) !important;
+  /* slate-300 */
+}
+
+[data-mode="light"] .bg-slate-700 {
+  background-color: #cbd5e1 !important;
+  /* slate-300 */
+}
+
+/* ── SVG graph fill overrides ── */
+[data-mode="light"] svg rect[fill="#0f172a"],
+[data-mode="light"] svg rect[fill="#1e293b"] {
+  fill: #f1f5f9 !important;
+}
+
+[data-mode="light"] .bg-slate-900\/80,
+[data-mode="light"] .bg-slate-800\/80 {
+  background-color: rgba(241, 245, 249, 0.9) !important;
+}
+
+/* ── Graph / SVG visualization containers ── */
+[data-mode="light"] .rounded-2xl.bg-slate-900\/60,
+[data-mode="light"] .rounded-xl.bg-slate-900\/60 {
+  background-color: rgba(241, 245, 249, 0.9) !important;
+}
+
+/* ── Distance / weight table cells (Dijkstra, Floyd-Warshall) ── */
+[data-mode="light"] .bg-slate-800\/60,
+[data-mode="light"] .bg-slate-800\/50 {
+  background-color: rgba(226, 232, 240, 0.8) !important;
+}
+
+/* ── Node labels inside SVG — keep white on colored circles ── */
+[data-mode="light"] svg text.fill-white,
+[data-mode="light"] svg text[fill="white"] {
+  fill: white !important;
+}
+
+/* ── Legend/info panels inside visualizers ── */
+[data-mode="light"] .bg-slate-900\/70 {
+  background-color: rgba(241, 245, 249, 0.95) !important;
+}
+
+/* ── Backdrop blur panels ── */
+[data-mode="light"] .backdrop-blur {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+}
+
+[data-mode="light"] .backdrop-blur-xl {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* ── Placeholder text ── */
+[data-mode="light"] .placeholder\:text-slate-500::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* ── Knapsack/Array item config inputs ── */
+[data-mode="light"] input[type="number"] {
+  background-color: #f1f5f9 !important;
+  color: #1e293b !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* ── SVG graph nodes — inline fill overrides ── */
+[data-mode="light"] svg circle[fill="#1e293b"],
+[data-mode="light"] svg circle[fill="#0f172a"] {
+  fill: #e2e8f0 !important;
+  stroke: #94a3b8 !important;
+}
+
+[data-mode="light"] svg rect[fill="#0f172a"],
+[data-mode="light"] svg rect[fill="#1e293b"] {
+  fill: #e2e8f0 !important;
+  stroke: #94a3b8 !important;
+}
+
+/* SVG node text — keep readable */
+[data-mode="light"] svg text[fill="white"],
+[data-mode="light"] svg text[fill="#fff"],
+[data-mode="light"] svg text.fill-white {
+  fill: #1e293b !important;
+}
+
+/* SVG edges / lines */
+[data-mode="light"] svg line[stroke="#334155"],
+[data-mode="light"] svg line[stroke="#475569"],
+[data-mode="light"] svg line[stroke="#64748b"] {
+  stroke: #94a3b8 !important;
+}
+
+/* SVG edge weight labels */
+[data-mode="light"] svg text[fill="#94a3b8"],
+[data-mode="light"] svg text[fill="#cbd5e1"] {
+  fill: #475569 !important;
+}
+
+/* ── Graph/Trie/Topological node TW classes ── */
+[data-mode="light"] .bg-slate-800 {
+  background-color: #e2e8f0 !important;
+}
+
+[data-mode="light"] .border-slate-600 {
+  border-color: #94a3b8 !important;
+}
+
+[data-mode="light"] .bg-slate-600 {
+  background-color: #94a3b8 !important;
+}
+
+[data-mode="light"] .bg-slate-600\/40 {
+  background-color: rgba(148, 163, 184, 0.4) !important;
+}
+
+/* ── Dashboard / form cards ── */
+[data-mode="light"] .bg-slate-800\/45,
+[data-mode="light"] .bg-slate-800\/50,
+[data-mode="light"] .bg-slate-800\/60 {
+  background-color: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* ── Progress bar backgrounds ── */
+[data-mode="light"] .bg-slate-700\/50 {
+  background-color: rgba(203, 213, 225, 0.5) !important;
+}
+
+/* ── Range slider tracks ── */
+[data-mode="light"] input[type="range"].bg-slate-700,
+[data-mode="light"] input[type="range"] {
+  background-color: #cbd5e1 !important;
+}
+
+/* ── Select dropdowns ── */
+[data-mode="light"] select {
+  background-color: #f1f5f9 !important;
+  color: #1e293b !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* ── Text inputs ── */
+[data-mode="light"] input[type="text"],
+[data-mode="light"] input[type="email"],
+[data-mode="light"] input[type="password"] {
+  background-color: #f1f5f9 !important;
+  color: #1e293b !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* ── Visit log / dark side panels ── */
+[data-mode="light"] .bg-slate-900\/50,
+[data-mode="light"] .bg-slate-900\/60,
+[data-mode="light"] .visualizer-control-hub {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* ── Separator lines ── */
+[data-mode="light"] .bg-slate-700 {
+  background-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+/* ── A* grid walls — keep visible ── */
+[data-mode="light"] .bg-slate-700.rounded-lg {
+  background-color: #64748b !important;
+}
+
+/* ── Sign-in/up focus overrides ── */
+[data-mode="light"] .focus\:bg-slate-800:focus {
+  background-color: #f1f5f9 !important;
+}
+
+/* ── Buttons that use bg-slate-700 ── */
+[data-mode="light"] button.bg-slate-700,
+[data-mode="light"] .bg-slate-700.text-slate-300 {
+  background-color: #e2e8f0 !important;
+  color: #334155 !important;
+}
+
+/* ── Hover states for slate backgrounds ── */
+[data-mode="light"] .hover\:bg-slate-700\/50:hover {
+  background-color: rgba(226, 232, 240, 0.5) !important;
+}
+
+[data-mode="light"] .hover\:bg-slate-800\/60:hover {
+  background-color: rgba(226, 232, 240, 0.6) !important;
+}
+
+/* ── Checkbox ── */
+[data-mode="light"] input[type="checkbox"] {
+  background-color: #f1f5f9 !important;
+  border-color: #94a3b8 !important;
+}
