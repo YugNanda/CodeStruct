@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const signup = async (userData) => {
-        const response = await fetch('https://codestruct.onrender.com', {
+        const response = await fetch('https://codestruct.onrender.com/api/auth/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     const signin = async (userData) => {
-        const response = await fetch('https://codestruct.onrender.com', {
+        const response = await fetch('https://codestruct.onrender.com/api/auth/signin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
