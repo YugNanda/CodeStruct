@@ -22,7 +22,7 @@ export default function Profile() {
         formData.append('image', file);
 
         try {
-            const res = await fetch('http://localhost:5000/api/user/profile-image', {
+            const res = await fetch('https://codestruct.onrender.com', {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${user.token}`

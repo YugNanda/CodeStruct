@@ -18,7 +18,7 @@ export const useFavorites = () => {
         
         try {
             const token = getToken();
-            const response = await fetch('http://localhost:5000/api/favorites', {
+            const response = await fetch('https://codestruct.onrender.com', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -41,7 +41,7 @@ export const useFavorites = () => {
         
         try {
             const token = getToken();
-            const response = await fetch(`http://localhost:5000/api/favorites/${algorithmId}`, {
+            const response = await fetch(`https://codestruct.onrender.com`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -66,7 +66,7 @@ export const useFavorites = () => {
         
         try {
             const token = getToken();
-            const response = await fetch(`http://localhost:5000/api/favorites/${algorithmId}`, {
+            const response = await fetch(`https://codestruct.onrender.com`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`

@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 
 async function test() {
     try {
-        const signupResponse = await fetch('http://localhost:5000/api/auth/signup', {
+        const signupResponse = await fetch('https://codestruct.onrender.com', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -14,7 +14,7 @@ async function test() {
         const signupData = await signupResponse.json();
         console.log('Signup Response:', signupData);
 
-        const signinResponse = await fetch('http://localhost:5000/api/auth/signin', {
+        const signinResponse = await fetch('https://codestruct.onrender.com', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

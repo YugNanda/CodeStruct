@@ -23,7 +23,7 @@ export const ProgressProvider = ({ children }) => {
         
         try {
             const token = getToken();
-            const response = await fetch('http://localhost:5000/api/progress', {
+            const response = await fetch('https://codestruct.onrender.com', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -50,7 +50,7 @@ export const ProgressProvider = ({ children }) => {
         
         try {
             const token = getToken();
-            const response = await fetch(`http://localhost:5000/api/progress/${algorithmId}`, {
+            const response = await fetch(`https://codestruct.onrender.com`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

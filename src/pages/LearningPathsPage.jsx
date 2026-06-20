@@ -30,10 +30,10 @@ export default function LearningPathsPage() {
         try {
             const token = user?.token || localStorage.getItem('token');
             const [pathsRes, recsRes] = await Promise.all([
-                fetch('http://localhost:5000/api/learning-paths', {
+                fetch('https://codestruct.onrender.com', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 }),
-                fetch('http://localhost:5000/api/learning-paths/recommendations', {
+                fetch('https://codestruct.onrender.com', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 })
             ]);

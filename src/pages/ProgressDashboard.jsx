@@ -45,7 +45,7 @@ export default function ProgressDashboard() {
             try {
                 const token = user?.token || localStorage.getItem('token');
                 // Attempt fetch
-                const response = await fetch('http://localhost:5000/api/dashboard', {
+                const response = await fetch('https://codestruct.onrender.com', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
 

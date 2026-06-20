@@ -212,7 +212,7 @@ export default function SignIn() {
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             type="button"
-                            onClick={() => window.location.href = 'http://localhost:5000/api/oauth/google'}
+                            onClick={() => window.location.href = 'https://codestruct.onrender.com'}
                             className="flex w-full items-center justify-center gap-3 rounded-xl border border-slate-700 bg-slate-800/50 px-8 py-3.5 text-sm font-medium text-white shadow-sm transition-all hover:bg-slate-700/50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-900"
                         >
                             <svg className="h-5 w-5" aria-hidden="true" viewBox="0 0 24 24">
