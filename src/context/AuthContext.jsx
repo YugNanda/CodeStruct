@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
         }
         setIsLoading(false);
     }, []);
-
+ 
     const signup = async (userData) => {
         const response = await fetch('https://codestruct.onrender.com/api/auth/signup', {
             method: 'POST',
